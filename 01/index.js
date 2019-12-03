@@ -106,15 +106,22 @@ const input = `119999
 
 const parsedInput = input.split(/\r?\n/);
 
-const calculateFuel = (mass) => {
+const calculateFuelSimple = mass => {
+  return Math.floor(mass / 3) - 2;
+};
+
+const calculateFuel = mass => {
   const initialFuel = Math.floor(mass / 3) - 2;
   if (initialFuel <= 0) {
-    return 0
+    return 0;
   }
   return initialFuel + calculateFuel(initialFuel);
-}
+};
+
+const simpleFuelRequirements = parsedInput.map(calculateFuelSimple);
+const simpleTotalFuel = simpleFuelRequirements.reduce((tot, cur) => tot + cur);
+console.log(simpleTotalFuel);
 
 const fuelRequirements = parsedInput.map(calculateFuel);
-const totalFuel = fuelRequirements.reduce((tot, cur) => (tot + cur), 0);
-
+const totalFuel = fuelRequirements.reduce((tot, cur) => tot + cur);
 console.log(totalFuel);
